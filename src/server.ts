@@ -1,4 +1,4 @@
-import express, { NextFunction, Request, Response } from "express";
+import express, { NextFunction, request, Request, Response } from "express";
 import bodyParser from "body-parser";
 import * as core from "express-serve-static-core";
 import slugify from "slug";
@@ -7,7 +7,7 @@ import { Db } from "mongodb";
 export function makeApp(db: Db): core.Express {
   const app = express();
   const jsonParser = bodyParser.json();
-
+  app.get("/"), (request: Request, response: Response) => {response.json({"Message" : "Bienvenue sur mon site"})};
   app.get("/platforms", async (request: Request, response: Response) => {
     const platformList = await db.collection("platforms").find().toArray();
     response.json(platformList);
